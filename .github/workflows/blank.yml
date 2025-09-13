@@ -1,0 +1,19 @@
+name: Nexus CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Verificar archivos Markdown
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+# This is a basic workflow to help you get started with Actions
+ci: add simple GitHub Actions workflow for Nexus Demo
+
