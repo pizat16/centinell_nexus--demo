@@ -1,19 +1,34 @@
 name: Nexus CI
+
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-  build:
+  demo:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Verificar archivos Markdown
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-# This is a basic workflow to help you get started with Actions
-ci: add simple GitHub Actions workflow for Nexus Demo
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Show Python version
+        run: python --version
+
+      - name: Run demo_init.py
+        run: python3 demo_init.py
+
+      - name: Upload logs as artifact
+        if: ${{ hashFiles('logs/demo_init.log') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-demo-logs
+          path: logs/demo_init.log
 
